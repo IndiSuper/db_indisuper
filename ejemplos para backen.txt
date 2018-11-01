@@ -1,0 +1,151 @@
+--- CATEGORIA ----
+
+{
+  "nombreCategoria": "Eventos",
+  "fotoCategoria": "concierto.jpg"
+}
+{
+  "nombreCategoria": "Cursos",
+  "fotoCategoria": "concierto.jpg"
+}
+{
+  "nombreCategoria": "Capacitaciones",
+  "fotoCategoria": "concierto.jpg"
+}
+
+
+
+--------------------------- SUB CATEGORIA ----
+
+{
+  "nombreSubcategoria": "Conciertos",
+  "fotoSubcategoria": "concierto.jpg"
+}
+
+{
+  "nombreSubcategoria": "Ferias y Fiestas",
+  "fotoSubcategoria": "fiestas.jpg"
+}
+
+{
+  "nombreSubcategoria": "Gastronomía",
+  "fotoSubcategoria": "gastro.jpg"
+}
+
+
+---------------CATEGORIAS __SUB CATEGORIA ----
+
+
+
+
+------------ TIPOS USUARIOS!!------------
+{
+  "nombreTipoUsuario": "Estudiante"
+}
+
+{
+  "nombreTipoUsuario": "Docente"
+}
+{
+  "nombreTipoUsuario": "Administrador"
+}
+
+----------------USUARIOS!!------------
+
+{
+  "fotoUsuario": "userchica.png",
+  "numIdentificacion": 1019139890,
+  "nombreUsuario": "Laydi Viviana",
+  "apellidoUsuario": "Bautista",
+  "fechaNac": "1998-05-13",
+  "fechaExpc": "2017-05-17",
+  "genero": "F",
+  "numCel": 3209497360,
+  "nickname": "lviviana13",
+  "clave": "amarilla13",
+  "notificacion": true,
+  "correoUsuario": "lviviana13@gmail.com"
+}
+
+
+{
+  "fotoUsuario": "userchico.png",
+  "numIdentificacion": 1019139891,
+  "nombreUsuario": "Nevil",
+  "apellidoUsuario": "Algo",
+  "fechaNac": "1998-10-3",
+  "fechaExpc": "2017-10-17",
+  "genero": "M",
+  "numCel": 3209497368,
+  "nickname": "nevil",
+  "clave": "rojo13",
+  "notificacion": true,
+  "correoUsuario": "nevil@gmail.com"
+}
+
+----USUARIOS TIPOS USUARIOS----
+
+
+{
+  "codTipoUsuario": 3,  
+  "codUsuario": 1
+}
+{
+  "codTipoUsuario": 1,  
+  "codUsuario": 1
+}
+
+{
+  "codTipoUsuario": 2,  
+  "codUsuario": 2
+}
+
+
+
+--- EVENTOS ----
+
+{
+  "nombreEvento": "Concierto Opera Clasica",
+  "fechaEvento": "2018-10-25",
+  "horaEvento": "07:25",
+  "descripEvento": "Un magnifico concierto de opera que no te puede perder",
+  "lugarEvento": "Teatro principal",
+  "direccionEvento": "cll 25 # 35A -20",
+  "ofreceEvento": "IDRD",
+  "fotoEvento": "opera.jpg",
+  "correoEvento": "idrd.eventos@bogota.com",
+  "telEvento": 3184458448,
+  "codAdministrador": 1
+}
+
+{
+  "nombreEvento": "Concierto NTVG",
+  "fechaEvento": "2018-12-11",
+  "horaEvento": "18:25",
+  "descripEvento": "El grupo más aspero haha",
+  "lugarEvento": "Centro de eventos",
+  "ofreceEvento": "Radioactiva",
+  "fotoEvento": "concierto.jpg",
+  "correoEvento": "idrd.eventos@bogota.com",
+  "telEvento": 3184458448,
+  "direccionEvento": "cll 25 # 35A -20",
+  "codAdministrador": 1
+}
+
+
+
+--- SUB CATEGORIA EVENTOS----
+
+{
+  "codSubcategoria": 1,
+  "codEvento": 1
+}
+
+{
+  "codSubcategoria": 1,
+  "codEvento": 8
+}
+
+--- SUB CATEGORIA CURSOS----
+
+

@@ -1,0 +1,288 @@
+
+CREATE TABLE	usuarios	(					
+		cod_usuario	SERIAL	NOT NULL	PRIMARY KEY		,
+		foto_usuario	VARCHAR(200)				,
+		tipo_identificacion	VARCHAR(1)				,
+		num_identificacion	BIGINT	NOT NULL		UNIQUE	,
+		nombre_usuario	VARCHAR(50)	NOT NULL			,
+		apellido_usuario	VARCHAR(50)	NOT NULL			,
+		fecha_nac	TIMESTAMP	NOT NULL			,
+		fecha_expc	TIMESTAMP	NOT NULL			,
+		genero	VARCHAR(1)	NOT NULL			,
+		num_fijo	BIGINT				,
+		num_cel	BIGINT	NOT NULL			,
+		nickname	VARCHAR(50)	NOT NULL		UNIQUE	,
+		clave	VARCHAR(200)	NOT NULL			,
+		notificacion	BOOLEAN	NOT NULL			,
+		correo_usuario	VARCHAR(80)	NOT NULL		UNIQUE	,
+		direccion_usuario	VARCHAR(80)				,
+		fecha_creacion	TIMESTAMP	NOT NULL		DEFAULT LOCALTIMESTAMP	,
+		activo	BOOLEAN	NOT NULL		DEFAULT TRUE	
+		);					
+					
+					
+
+CREATE TABLE	tipos_usuarios	(					
+		cod_tipo_usuario	SERIAL	NOT NULL	PRIMARY KEY		,
+		nombre_tipo_usuario	VARCHAR(50)	NOT NULL			,
+		fecha_creacion	TIMESTAMP	NOT NULL		DEFAULT LOCALTIMESTAMP	,
+		activo	BOOLEAN	NOT NULL		DEFAULT TRUE	
+		);					
+					
+
+CREATE TABLE	usuarios_tiposusuarios	(					
+		cod_tipo_usuario	BIGINT	NOT NULL	REFERENCES	tipos_usuarios(cod_tipo_usuario)	,
+		cod_usuario	BIGINT	NOT NULL	REFERENCES	usuarios(cod_usuario)	,
+		fecha_creacion	TIMESTAMP	NOT NULL		DEFAULT LOCALTIMESTAMP	,
+		activo	BOOLEAN	NOT NULL		DEFAULT TRUE	,
+		PRIMARY KEY (cod_tipo_usuario, cod_usuario) 					
+		);					
+					
+					
+
+
+CREATE TABLE	empresas	(					
+		cod_empresa	SERIAL	NOT NULL	PRIMARY KEY		,
+		nit	BIGINT	NOT NULL		UNIQUE	,
+		nombre_empresa	VARCHAR(50)	NOT NULL			,
+		descrip_empresa	VARCHAR(50)				,
+		correo_empresa	VARCHAR(50)	NOT NULL			,
+		web_empresa	VARCHAR(200)	NOT NULL			,
+		num_empresa	BIGINT				,
+		direccion_emp	VARCHAR(50)				,
+		fecha_creacion	TIMESTAMP	NOT NULL		DEFAULT LOCALTIMESTAMP	,
+		activo	BOOLEAN	NOT NULL		DEFAULT TRUE	
+		);					
+				
+
+
+CREATE TABLE	empresas_admins	(					
+		cod_administrador	BIGINT	NOT NULL	REFERENCES	usuarios(cod_usuario)	,
+		cod_empresa	BIGINT	NOT NULL	REFERENCES	empresas(cod_empresa)	,
+		fecha_creacion	TIMESTAMP	NOT NULL		DEFAULT LOCALTIMESTAMP	,
+		activo	BOOLEAN	NOT NULL		DEFAULT TRUE	,
+		PRIMARY KEY (cod_administrador, cod_empresa) 					
+		);					
+					
+					
+
+
+CREATE TABLE	categorias	(					
+		cod_categoria	SERIAL	NOT NULL	PRIMARY KEY		,
+		nombre_categoria	VARCHAR(50)	NOT NULL			,
+		foto_categoria	VARCHAR(200)	NOT NULL			,
+		fecha_creacion	TIMESTAMP	NOT NULL		DEFAULT LOCALTIMESTAMP	,
+		activo	BOOLEAN	NOT NULL		DEFAULT TRUE	
+		);					
+					
+
+
+CREATE TABLE	subcategorias 	(					
+		cod_subcategoria	SERIAL	NOT NULL	PRIMARY KEY		,
+		nombre_subcategoria	VARCHAR(50)	NOT NULL		UNIQUE	,
+		foto_subcategoria	VARCHAR(200)	NOT NULL			,
+		fecha_creacion	TIMESTAMP	NOT NULL		DEFAULT LOCALTIMESTAMP	,
+		activo	BOOLEAN	NOT NULL		DEFAULT TRUE	
+		);					
+					
+				
+CREATE TABLE	categorias_subcategorias	(					
+		cod_subcategoria	BIGINT	NOT NULL	REFERENCES	subcategorias(cod_subcategoria)	,
+		cod_categoria	BIGINT	NOT NULL	REFERENCES	categorias(cod_categoria)	,
+		fecha_creacion	TIMESTAMP	NOT NULL		DEFAULT LOCALTIMESTAMP	,
+		activo	BOOLEAN	NOT NULL		DEFAULT TRUE	,
+		PRIMARY KEY (cod_subcategoria, cod_categoria) 					
+		);					
+
+				
+CREATE TABLE	eventos	(					
+		cod_evento	SERIAL	NOT NULL	PRIMARY KEY		,
+		nombre_evento	VARCHAR(50)	NOT NULL			,
+		fecha_evento	DATE	NOT NULL			,
+		hora_evento	TIME	NOT NULL			,
+		descrip_evento	VARCHAR(200)	NOT NULL			,
+		lugar_evento	VARCHAR(200)	NOT NULL			,
+		direccion_evento	VARCHAR(200)	NOT NULL			,
+		estado_evento	BOOLEAN	NOT NULL		DEFAULT TRUE	,
+		ofrece_evento	VARCHAR(50)	NOT NULL			,
+		foto_evento	VARCHAR(200)	NOT NULL			,
+		correo_evento	VARCHAR(100)				,
+		tel_evento	BIGINT				,
+		cod_administrador	BIGINT	NOT NULL	REFERENCES	usuarios(cod_usuario)	,
+		fecha_creacion	TIMESTAMP	NOT NULL		DEFAULT LOCALTIMESTAMP	,
+		activo	BOOLEAN	NOT NULL		DEFAULT TRUE	
+		);					
+				
+					
+										
+CREATE TABLE	subcategoria_eventos 	(					
+		cod_subcategoria	BIGINT	NOT NULL	REFERENCES	subcategorias(cod_subcategoria)	,
+		cod_evento	BIGINT	NOT NULL	REFERENCES	eventos(cod_evento)	,
+		fecha_creacion	TIMESTAMP	NOT NULL		DEFAULT LOCALTIMESTAMP	,
+		activo	BOOLEAN	NOT NULL		DEFAULT TRUE	,
+		PRIMARY KEY (cod_subcategoria,cod_evento) 					
+		);					
+			
+CREATE TABLE	cursos	(					
+		cod_curso	SERIAL	NOT NULL	PRIMARY KEY		,
+		fechaini_curso	DATE	NOT NULL			,
+		fechafin_curso	DATE	NOT NULL			,
+		nombre_curso	VARCHAR(50)	NOT NULL			,
+		nivel_curso	VARCHAR(50)				,
+		duracion_curso	INT	NOT NULL			,
+		descripción_curso	VARCHAR(300)	NOT NULL			,
+		compromiso	VARCHAR(400)	NOT NULL			,
+		correo_curso	VARCHAR(100)	NOT NULL			,
+		tel_curso	INT				,
+		lugar_curso	VARCHAR(200)	NOT NULL			,
+		estado_curso	BOOLEAN	NOT NULL		DEFAULT TRUE	,
+		cancelado_curso	BOOLEAN	NOT NULL		DEFAULT FALSE	,
+		requisitos	BOOLEAN	NOT NULL		DEFAULT TRUE	,
+		ofrece_curso	VARCHAR(50)	NOT NULL			,
+		cod_administrador	BIGINT	NOT NULL	REFERENCES	usuarios(num_identificacion)	,
+		cod_docente	BIGINT	NOT NULL	REFERENCES	usuarios(num_identificacion)	,
+		cupo_curso	INT	NOT NULL			,
+		fecha_creacion	TIMESTAMP	NOT NULL		DEFAULT LOCALTIMESTAMP	,
+		activo	BOOLEAN	NOT NULL		DEFAULT TRUE	
+		);					
+					
+
+
+CREATE TABLE	subcategoria_cursos	(					
+		cod_subcategoria	BIGINT	NOT NULL	REFERENCES	subcategorias(cod_subcategoria)	,
+		cod_curso	BIGINT	NOT NULL	REFERENCES	cursos(cod_curso)	,
+		fecha_creacion	TIMESTAMP	NOT NULL		DEFAULT LOCALTIMESTAMP	,
+		activo	BOOLEAN	NOT NULL		DEFAULT TRUE	,
+		PRIMARY KEY (cod_curso) 					
+		);					
+
+
+CREATE TABLE	estudiantes_aplica_cursos	(					
+		cod_estudiante	BIGINT	NOT NULL	REFERENCES	usuarios(cod_usuario)	,
+		cod_curso	BIGINT	NOT NULL	REFERENCES	cursos(cod_curso)	,
+		adjunto_requisitos	VARCHAR(200)	NOT NULL			,
+		revisado_reqcurso	BOOLEAN	NOT NULL		DEFAULT FALSE	,
+		admisión_curso	BOOLEAN	NOT NULL		DEFAULT FALSE	,
+		fecha_aplica	TIMESTAMP	NOT NULL		DEFAULT LOCALTIMESTAMP	,
+		activo	BOOLEAN	NOT NULL		DEFAULT TRUE	,
+		PRIMARY KEY (cod_estudiante, cod_curso) 					
+		);					
+					
+				
+CREATE TABLE	horarios	(					
+		cod_horario	SERIAL	NOT NULL	PRIMARY KEY		,
+		cod_curso	BIGINT	NOT NULL	REFERENCES	cursos(cod_curso)	,
+		lugar_sesion	VARCHAR(100)	NOT NULL			,
+		dia_sesion	DATE	NOT NULL			,
+		hora_sesion	TIME	NOT NULL			,
+		fecha_creacion	TIMESTAMP	NOT NULL		DEFAULT LOCALTIMESTAMP	,
+		activo	BOOLEAN	NOT NULL		DEFAULT TRUE	
+		);					
+
+CREATE TABLE	asistencias_cursos	(					
+		cod_horario	BIGINT	NOT NULL	REFERENCES	horarios(cod_horario)	,
+		cod_curso	BIGINT	NOT NULL	REFERENCES	cursos(cod_curso)	,
+		cod_estudiante	BIGINT	NOT NULL	REFERENCES	usuarios(cod_usuario)	,
+		estado	BOOLEAN	NOT NULL		DEFAULT FALSE	,
+		fecha_creacion	TIMESTAMP	NOT NULL		DEFAULT LOCALTIMESTAMP	,
+		activo	BOOLEAN	NOT NULL		DEFAULT TRUE	,
+		PRIMARY KEY (cod_curso, cod_horario, cod_estudiante) 					
+		);					
+				
+
+CREATE TABLE	calificaciones_cursos	(					
+		cod_calificacion	SERIAL	NOT NULL	PRIMARY KEY		,
+		calificacion	INT	NOT NULL			,
+		cod_estudiante	BIGINT	NOT NULL	REFERENCES	usuarios(cod_usuario)	,
+		cod_curso	BIGINT	NOT NULL	REFERENCES	cursos(cod_curso)	,
+		fecha_creacion	TIMESTAMP	NOT NULL		DEFAULT LOCALTIMESTAMP	,
+		activo	BOOLEAN	NOT NULL		DEFAULT TRUE	
+		);					
+
+CREATE TABLE	intereses_esc	(					
+		cod_estudiante	BIGINT	NOT NULL	REFERENCES	usuarios(cod_usuario)	,
+		cod_subcategoria	BIGINT	NOT NULL	REFERENCES	subcategorias(cod_subcategoria)	,
+		notificacion_ec	BOOLEAN	NOT NULL		DEFAULT FALSE	,
+		fecha_creacion	TIMESTAMP	NOT NULL		DEFAULT LOCALTIMESTAMP	,
+		activo	BOOLEAN	NOT NULL		DEFAULT TRUE	,
+		PRIMARY KEY (cod_estudiante, cod_subcategoria) 					
+		);					
+				
+
+CREATE TABLE	sanciones	(					
+		cod_sansion	SERIAL	NOT NULL	PRIMARY KEY		,
+		tiempo_sancion	INT	NOT NULL			,
+		fecha_creacion	TIMESTAMP	NOT NULL		DEFAULT LOCALTIMESTAMP	,
+		activo	BOOLEAN	NOT NULL		DEFAULT TRUE	
+		);					
+
+CREATE TABLE	sanciones_cursos	(					
+		cod_sansion	BIGINT	NOT NULL	REFERENCES	sanciones(cod_sansion)	,
+		cod_curso	BIGINT	NOT NULL	REFERENCES	cursos(cod_curso)	,
+		fecha_creacion	TIMESTAMP	NOT NULL		DEFAULT LOCALTIMESTAMP	,
+		activo	BOOLEAN	NOT NULL		DEFAULT TRUE	,
+		PRIMARY KEY (cod_curso) 					
+		);										
+
+CREATE TABLE	capacitaciones	(					
+		cod_capacitacion	SERIAL	NOT NULL	PRIMARY KEY		,
+		cod_administrador	BIGINT	NOT NULL	REFERENCES	usuarios(cod_usuario)	,
+		cod_docente	BIGINT	NOT NULL	REFERENCES	usuarios(cod_usuario)	,
+		fecha_capacitacion	DATE	NOT NULL			,
+		nombre_capacitacion	VARCHAR(50)	NOT NULL			,
+		descripción_capacitacion	VARCHAR(200)	NOT NULL			,
+		lugar_capacitacion	VARCHAR(200)	NOT NULL			,
+		estado_capacitación	BOOLEAN	NOT NULL		DEFAULT TRUE	,
+		cancelada_capacitacion	BOOLEAN	NOT NULL		DEFAULT FALSE	,
+		ofrece_capacitacion	VARCHAR(100)	NOT NULL			,
+		hora_cap	TIME	NOT NULL			,
+		correo_capacitacion	VARCHAR(100)	NOT NULL			,
+		duracion_capacitacion	INT	NOT NULL			,
+		cupo_capacitacion	INT	NOT NULL			,
+		tel_capacitacion	BIGINT				,
+		direccion_cap	VARCHAR(100)	NOT NULL			,
+		fecha_creacion	TIMESTAMP	NOT NULL		DEFAULT LOCALTIMESTAMP	,
+		activo	BOOLEAN	NOT NULL		DEFAULT TRUE	
+		);					
+
+
+CREATE TABLE	asistencias_capacitaciones	(					
+		cod_capacitacion	BIGINT	NOT NULL	REFERENCES	capacitaciones(cod_capacitacion)	,
+		cod_estudiante	BIGINT	NOT NULL	REFERENCES	usuarios(cod_usuario)	,
+		estado	BOOLEAN	NOT NULL		DEFAULT FALSE	,
+		fecha_creacion	TIMESTAMP	NOT NULL		DEFAULT LOCALTIMESTAMP	,
+		activo	BOOLEAN	NOT NULL		DEFAULT TRUE	,
+		PRIMARY KEY (cod_capacitacion, cod_estudiante) 					
+		);					
+
+
+CREATE TABLE	calificaciones_capacitaciones	(					
+		cod_calificacion	SERIAL	NOT NULL	PRIMARY KEY		,
+		calificacion	INT	NOT NULL			,
+		cod_estudiante	BIGINT	NOT NULL	REFERENCES	usuarios(cod_usuario)	,
+		cod_capacitacion	BIGINT	NOT NULL	REFERENCES	capacitaciones(cod_capacitacion)	,
+		fecha_creacion	TIMESTAMP	NOT NULL		DEFAULT LOCALTIMESTAMP	,
+		activo	BOOLEAN	NOT NULL		DEFAULT TRUE	
+		);	
+
+CREATE TABLE	sanciones_capacitaciones	(					
+		cod_sansion	BIGINT	NOT NULL	REFERENCES	sanciones(cod_sansion)	,
+		cod_capacitacion	BIGINT	NOT NULL	REFERENCES	capacitaciones(cod_capacitacion)	,
+		fecha_creacion	TIMESTAMP	NOT NULL		DEFAULT LOCALTIMESTAMP	,
+		activo	BOOLEAN	NOT NULL		DEFAULT TRUE	,
+		PRIMARY KEY (cod_capacitacion) 					
+		);					
+				
+			
+CREATE TABLE	usuarios_sansiones	(					
+		cod_sansion	BIGINT	NOT NULL	REFERENCES	sanciones(cod_sansion)	,
+		cod_estudiante	BIGINT	NOT NULL	REFERENCES	usuarios(cod_usuario)	,
+		estado	BOOLEAN	NOT NULL		DEFAULT TRUE	,
+		fecha_creacion	TIMESTAMP	NOT NULL		DEFAULT LOCALTIMESTAMP	,
+		activo	BOOLEAN	NOT NULL		DEFAULT TRUE	,
+		PRIMARY KEY (cod_sansion, cod_estudiante) 					
+		);					
+					
+
+				
+																																														
